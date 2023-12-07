@@ -38,10 +38,15 @@ Réception des Réponses : Une fois que la requête est exécutée, Feign traite
 
 3) Exécutez tous les micro-service : Eureka server ,Gateway, Client et voiture
 4) chercher un client un client
+
+
 ![image](https://github.com/najiaokacha/Microservice_Client_Voiture/assets/100485014/666e84b2-2b95-4fc0-8d2d-559964560f33)
 
 
 5) chercer les voitures associées aux clients
+
+
+
 ![voiture](https://github.com/najiaokacha/Microservice_Client_Voiture/assets/100485014/2f5596e9-4ff7-4579-9cdd-99b2b11e3b93)
 
 
