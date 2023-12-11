@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  eureka-server:
+    container_name: eureka-server
+    restart: always
+    ports:
+      - "8761:8761"
+    image: eureka-server-img:V01
+    networks:
+      - app-network
+
+  service_gateway: 
+    container_name: service_gateway 
+    restart: always
+    ports:
+      - "8888:8888"
+    image: gateway-img:V01
+    environment:
+      - EUREKA_SERVER= eureka-server
+    networks:
+      - app-network
+
+  service_client:
+    container_name: service_client
+    restart: always
+    ports:
+      - "8088:8088"
+    image: client-img:V01
+    environment:
+      - EUREKA_SERVER=eureka-server
+      - MYSQL_HOST=mysqNajia
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_PORT=3306
+    depends_on:
+      - eureka-server
+      - mysqNajia
+    networks:
+      - app-network
+
+  service_voiture:
+    container_name: SERVICE_VOITURE
+    restart: always
+    ports:
+      - "8089:8089"
+    image: voiture-img:V01
+    environment:
+      - EUREKA_SERVER=eureka-server
+      - MYSQL_HOST=mysqNajia
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+      - MYSQL_PORT=3306
+    depends_on:
+      - eureka-server
+      - mysqNajia
+    networks:
+      - app-network
+
+  mysqNajia:
+    container_name: mysqNajia
+    image: mysql:latest
+    ports: 
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: bd_mysql 
+      MYSQL_ROOT_PASSWORD:
+    networks:
+      - app-network
+
+volumes:
+  mysql:
+
+networks:
+  app-network:
+    driver: bridge
